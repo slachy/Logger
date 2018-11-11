@@ -1,10 +1,16 @@
 #include <gtest/gtest.h>
 #include <iostream>
+#include <fstream>
 #include "Logger.hpp"
 
-TEST(LoggerTestSuite, SimpleLoggerTest)
+TEST(LoggerTestSuite, CoutLoggerTest)
 {
 	Logger logger(std::cout);
-	logger.log("Some text");
+	ASSERT_TRUE(logger.log("Some text"));
+}
 
+TEST(LoggerTestSuite, FileLoggerTestOneClass)
+{
+	Logger logger("tmp.log");
+	ASSERT_TRUE(logger.log("Some text"));
 }
