@@ -1,6 +1,8 @@
 #include <string>
 #include <fstream>
 
+enum class LogLevel { Debug, Info, Warning, Error };
+
 class Logger
 {
 public:
@@ -9,7 +11,9 @@ public:
 	{
 		file.open(filename);
 	}
-	std::ostream& log(std::string);
+
+	template <LogLevel Level>
+	void log(std::string);
 
 private:
 	std::ostream& output;
