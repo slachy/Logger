@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include "Logger.hpp"
+#include "ConsoleLogPolicy.hpp"
+#include "FileLogPolicy.hpp"
 
 TEST(LoggerTestSuite, CoutLoggerTestDebug)
 {
@@ -27,8 +29,9 @@ TEST(LoggerTestSuite, CoutLoggerTestError)
 	logger.log<LogLevel::Error>("Some text");
 }
 
-/*TEST(LoggerTestSuite, FileLoggerTestOneClass)
+TEST(LoggerTestSuite, FileLoggerTestOneClass)
 {
-	Logger logger("tmp.log");
+	Logger<FileLogPolicy> logger;
+	logger.getPolicy()->open("tmp.log");
 	logger.log<LogLevel::Info>("Some text");
-}*/
+}

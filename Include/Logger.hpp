@@ -1,18 +1,9 @@
+#pragma once
+
 #include <string>
 #include <fstream>
 
 enum class LogLevel { Debug, Info, Warning, Error };
-
-class ConsoleLogPolicy
-{
-protected:
-	template <class T> friend class Logger;
-
-	void write(const std::string& buffer)
-	{
-		std::cout << buffer;
-	}
-};
 
 template <LogLevel Level>
 std::string logLevelToStr()
@@ -54,9 +45,16 @@ public:
 	{
 		std::string logLevelStr;
 		logLevelStr = logLevelToStr<Level>();
-		Policy p;
-		p.write(logLevelStr + str);
+		policy.write(logLevelStr + str);
 	}
+
+	Policy* getPolicy()
+	{
+		return &policy;
+	}
+
+private:
+	Policy policy;
 };
 
 
