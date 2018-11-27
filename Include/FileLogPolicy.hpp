@@ -7,6 +7,8 @@ class FileLogPolicy
 {
 public:
 	FileLogPolicy() {}
+	FileLogPolicy(const FileLogPolicy& copy) = delete;
+	FileLogPolicy(FileLogPolicy&& other) : fileStream(std::move(other.fileStream)) {}
 	~FileLogPolicy()
 	{
 		close();
@@ -38,7 +40,7 @@ private:
 	std::ofstream fileStream;
 
 protected:
-	template <class T> friend class Logger;
+	template <class ... T> friend class Logger;
 
 	void write(const std::string& buffer)
 	{

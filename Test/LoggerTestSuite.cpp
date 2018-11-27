@@ -29,9 +29,16 @@ TEST(LoggerTestSuite, CoutLoggerTestError)
 	logger.log<LogLevel::Error>("Some text");
 }
 
-TEST(LoggerTestSuite, FileLoggerTestOneClass)
+TEST(LoggerTestSuite, FileLoggerTest)
 {
 	Logger<FileLogPolicy> logger;
-	logger.getPolicy()->open("tmp.log");
+	logger.getPolicy<FileLogPolicy>()->open("FileLoggerTest.log");
 	logger.log<LogLevel::Info>("Some text");
+}
+
+TEST(LoggerTestSuite, FileAndConsoleLoggerTest)
+{
+	Logger<ConsoleLogPolicy, FileLogPolicy> logger;
+	logger.getPolicy<FileLogPolicy>()->open("FileAndConsoleLoggerTest.log");
+	logger.log<LogLevel::Error>("Some text");
 }
