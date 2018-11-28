@@ -4,6 +4,7 @@
 #include "Logger.hpp"
 #include "ConsoleLogPolicy.hpp"
 #include "FileLogPolicy.hpp"
+#include "ThreadSafePolicy.hpp"
 
 TEST(LoggerTestSuite, CoutLoggerTestDebug)
 {
@@ -41,4 +42,10 @@ TEST(LoggerTestSuite, FileAndConsoleLoggerTest)
 	Logger<ConsoleLogPolicy, FileLogPolicy> logger;
 	logger.getPolicy<FileLogPolicy>()->open("FileAndConsoleLoggerTest.log");
 	logger.log<LogLevel::Error>("Some text");
+}
+
+TEST(LoggerTestSuite, ThreadSafeCoutLoggerTest)
+{
+	Logger<ThreadSafePolicy, ConsoleLogPolicy> logger;
+	logger.log<LogLevel::Debug>("Some text");
 }

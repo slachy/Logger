@@ -4,6 +4,9 @@
 #include <fstream>
 #include <type_traits>
 #include <tuple>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 
 enum class LogLevel { Debug, Info, Warning, Error };
 
@@ -49,10 +52,14 @@ public:
 	template <LogLevel Level>
 	void log(std::string str)
 	{
+	    auto t = std::time(nullptr);
+	    auto timestamp = *std::localtime(&t);
+		std::ostringstream oss;
+		oss << std::put_time(&timestamp, "%d-%m-%Y:%H-%M-%S");
 		std::string logLevelStr;
 		logLevelStr = logLevelToStr<Level>();
 
-		doPolicy<0>(policies, logLevelStr + str);
+		doPolicy<0>(policies, oss.str() + " " + logLevelStr + str);
 	}
 
 	template <typename T>
@@ -73,7 +80,7 @@ private:
     template <size_t I>
 	typename std::enable_if<I != numOfPolicies>::type doPolicy(std::tuple<Policies...>& p, const std::string& str)
 	{
-		std::get<I>(p).write(str);
+		std::get<I>(p).applyPolicy(str);
 		doPolicy<I+1>(p, str);
 	}
 

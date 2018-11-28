@@ -1,7 +1,7 @@
 --- System logowania z użyciem policies i policy classes ---
 
-1. Dowolny output (np. plik, ekran).
-2. Różne severity (np. error, warning, info, debug).
+1. [DONE] Dowolny output (np. plik, ekran).
+2. [DONE] Różne severity (np. error, warning, info, debug).
 3. Threads (możliwość logowania z wielu wątków).
 4. Buforowanie - albo od razu wrzuca do outputu albo buforuje i jak wypełni bufor, to wtedy wrzuca w output.
 5. Widoczny z każdego miejsca w kodzie.

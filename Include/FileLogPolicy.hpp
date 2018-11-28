@@ -2,8 +2,9 @@
 
 #include <iostream>
 #include <fstream>
+#include "ILoggerPolicy.hpp"
 
-class FileLogPolicy
+class FileLogPolicy : public ILoggerPolicy
 {
 public:
 	FileLogPolicy() {}
@@ -42,7 +43,7 @@ private:
 protected:
 	template <class ... T> friend class Logger;
 
-	void write(const std::string& buffer)
+	void applyPolicy(const std::string& buffer) override
 	{
 		if (fileStream)
 		{
