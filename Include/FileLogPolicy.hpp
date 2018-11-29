@@ -43,7 +43,7 @@ private:
 protected:
 	template <class ... T> friend class Logger;
 
-	void applyPolicy(const std::string& buffer) override
+	void applyPolicy(std::string& buffer) override
 	{
 		if (fileStream)
 		{

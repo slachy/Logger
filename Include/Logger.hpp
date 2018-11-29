@@ -58,8 +58,8 @@ public:
 		oss << std::put_time(&timestamp, "%d-%m-%Y:%H-%M-%S");
 		std::string logLevelStr;
 		logLevelStr = logLevelToStr<Level>();
-
-		doPolicy<0>(policies, oss.str() + " " + logLevelStr + str);
+		str = oss.str() + " " + logLevelStr + str;
+		doPolicy<0>(policies, str);
 	}
 
 	template <typename T>
@@ -78,14 +78,14 @@ public:
 
 private:
     template <size_t I>
-	typename std::enable_if<I != numOfPolicies>::type doPolicy(std::tuple<Policies...>& p, const std::string& str)
+	typename std::enable_if<I != numOfPolicies>::type doPolicy(std::tuple<Policies...>& p, std::string& str)
 	{
 		std::get<I>(p).applyPolicy(str);
 		doPolicy<I+1>(p, str);
 	}
 
 	template <size_t I>
-    typename std::enable_if<I == numOfPolicies>::type doPolicy(std::tuple<Policies...>& p, const std::string& str)
+    typename std::enable_if<I == numOfPolicies>::type doPolicy(std::tuple<Policies...>& p, std::string& str)
 	{
 	}
 

@@ -6,5 +6,5 @@ class ILoggerPolicy
 protected:
 	template <class ... T> friend class Logger;
 
-	virtual void applyPolicy(const std::string&) = 0;
+	virtual void applyPolicy(std::string&) = 0;
 };

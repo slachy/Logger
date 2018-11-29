@@ -8,7 +8,7 @@ class ConsoleLogPolicy : public ILoggerPolicy
 protected:
 	template <class ... T> friend class Logger;
 
-	void applyPolicy(const std::string& buffer) override
+	void applyPolicy(std::string& buffer) override
 	{
 		std::cout << buffer << std::endl;;
 	}

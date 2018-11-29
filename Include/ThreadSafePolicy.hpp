@@ -6,16 +6,21 @@
 
 class ThreadSafePolicy : public ILoggerPolicy
 {
+private:
+    static std::mutex mutex;
+
+public:
+	~ThreadSafePolicy()
+	{
+		mutex.unlock();
+	}
 protected:
 	template <class ... T> friend class Logger;
 
-	void applyPolicy(const std::string&) override
+	void applyPolicy(std::string&) override
 	{
-		// TODO make it locked for real
-		std::cout << "<LOCK> ";
-	    std::mutex mutex;
-		std::lock_guard<std::mutex> lock(mutex);
+        mutex.lock();
 	}
-
-private:
 };
+
+std::mutex ThreadSafePolicy::mutex;

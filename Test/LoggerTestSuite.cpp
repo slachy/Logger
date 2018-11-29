@@ -1,10 +1,13 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include <fstream>
+#include <thread>
+
 #include "Logger.hpp"
 #include "ConsoleLogPolicy.hpp"
 #include "FileLogPolicy.hpp"
 #include "ThreadSafePolicy.hpp"
+#include "RedErrorPolicy.hpp"
 
 TEST(LoggerTestSuite, CoutLoggerTestDebug)
 {
@@ -44,8 +47,29 @@ TEST(LoggerTestSuite, FileAndConsoleLoggerTest)
 	logger.log<LogLevel::Error>("Some text");
 }
 
+void firstThread()
+{
+    Logger<ThreadSafePolicy, ConsoleLogPolicy> logger;
+    logger.log<LogLevel::Debug>("Text logged from first thread");
+}
+
+void secondThread()
+{
+    Logger<ThreadSafePolicy, ConsoleLogPolicy> logger;
+    logger.log<LogLevel::Info>("Text logged from second thread");
+}
+
 TEST(LoggerTestSuite, ThreadSafeCoutLoggerTest)
 {
-	Logger<ThreadSafePolicy, ConsoleLogPolicy> logger;
-	logger.log<LogLevel::Debug>("Some text");
+	std::thread threadOne(firstThread);
+	std::thread threadTwo(secondThread);
+
+	threadTwo.join();
+	threadOne.join();
+}
+
+TEST(LoggerTestSuite, RedErrorCoutTest)
+{
+	Logger<RedErrorPolicy, ConsoleLogPolicy> logger;
+	logger.log<LogLevel::Error>("Some text");
 }
