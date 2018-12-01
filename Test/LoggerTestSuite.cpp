@@ -7,7 +7,7 @@
 #include "ConsoleLogPolicy.hpp"
 #include "FileLogPolicy.hpp"
 #include "ThreadSafePolicy.hpp"
-#include "RedErrorPolicy.hpp"
+#include "LogLevelColorPolicy.hpp"
 
 TEST(LoggerTestSuite, CoutLoggerTestDebug)
 {
@@ -68,8 +68,11 @@ TEST(LoggerTestSuite, ThreadSafeCoutLoggerTest)
 	threadOne.join();
 }
 
-TEST(LoggerTestSuite, RedErrorCoutTest)
+TEST(LoggerTestSuite, ColorPolicyCoutTest)
 {
-	Logger<RedErrorPolicy, ConsoleLogPolicy> logger;
+	Logger<LogLevelColorPolicy, ConsoleLogPolicy> logger;
+	logger.getPolicy<LogLevelColorPolicy>()->setColor<LogLevel::Error>(Color::RED);
+	logger.getPolicy<LogLevelColorPolicy>()->setColor<LogLevel::Info>(Color::BLUE);
 	logger.log<LogLevel::Error>("Some text");
+	logger.log<LogLevel::Info>("Some other text");
 }

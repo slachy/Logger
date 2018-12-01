@@ -2,9 +2,8 @@
 
 #include <iostream>
 #include <fstream>
-#include "ILoggerPolicy.hpp"
 
-class FileLogPolicy : public ILoggerPolicy
+class FileLogPolicy
 {
 public:
 	FileLogPolicy() {}
@@ -37,13 +36,7 @@ public:
 		}
 	}
 
-private:
-	std::ofstream fileStream;
-
-protected:
-	template <class ... T> friend class Logger;
-
-	void applyPolicy(std::string& buffer) override
+	void applyPolicy(std::string& buffer)
 	{
 		if (fileStream)
 		{
@@ -54,4 +47,8 @@ protected:
 			std::cerr << "FileLogPolicy Error: File stream is not open for writing." << std::endl;
 		}
 	}
+private:
+	std::ofstream fileStream;
+
+
 };

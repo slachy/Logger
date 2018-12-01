@@ -1,14 +1,12 @@
 #pragma once
 
 #include <iostream>
-#include "ILoggerPolicy.hpp"
 
-class ConsoleLogPolicy : public ILoggerPolicy
+class ConsoleLogPolicy
 {
-protected:
-	template <class ... T> friend class Logger;
+public:
 
-	void applyPolicy(std::string& buffer) override
+	void applyPolicy(std::string& buffer)
 	{
 		std::cout << buffer << std::endl;;
 	}

@@ -2,9 +2,8 @@
 
 #include <iostream>
 #include <mutex>
-#include "ILoggerPolicy.hpp"
 
-class ThreadSafePolicy : public ILoggerPolicy
+class ThreadSafePolicy
 {
 private:
     static std::mutex mutex;
@@ -14,10 +13,8 @@ public:
 	{
 		mutex.unlock();
 	}
-protected:
-	template <class ... T> friend class Logger;
 
-	void applyPolicy(std::string&) override
+	void applyPolicy(std::string&)
 	{
         mutex.lock();
 	}
