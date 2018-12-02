@@ -9,30 +9,37 @@
 #include "ThreadSafePolicy.hpp"
 #include "LogLevelColorPolicy.hpp"
 
-TEST(LoggerTestSuite, CoutLoggerTestDebug)
+TEST(LoggerTestSuite, CoutLoggerTest)
 {
-	Logger<ConsoleLogPolicy> logger;
+	Logger<ConsoleWriter> logger;
 	logger.log<LogLevel::Debug>("Some text");
+}
+
+TEST(LoggerTestSuite, FileLoggerTest)
+{
+	Logger<FileWriter> logger;
+	logger.open("FileLoggerTest.log");
+	logger.log<LogLevel::Info>("Some text");
 }
 
 TEST(LoggerTestSuite, CoutLoggerTestInfo)
 {
-	Logger<ConsoleLogPolicy> logger;
+	Logger<ConsoleWriter> logger;
 	logger.log<LogLevel::Info>("Some text");
 }
 
 TEST(LoggerTestSuite, CoutLoggerTestWarning)
 {
-	Logger<ConsoleLogPolicy> logger;
+	Logger<ConsoleWriter> logger;
 	logger.log<LogLevel::Warning>("Some text");
 }
 
 TEST(LoggerTestSuite, CoutLoggerTestError)
 {
-	Logger<ConsoleLogPolicy> logger;
+	Logger<ConsoleWriter> logger;
 	logger.log<LogLevel::Error>("Some text");
 }
-
+/*
 TEST(LoggerTestSuite, FileLoggerTest)
 {
 	Logger<FileLogPolicy> logger;
@@ -40,7 +47,7 @@ TEST(LoggerTestSuite, FileLoggerTest)
 	logger.log<LogLevel::Info>("Some text");
 }
 
-TEST(LoggerTestSuite, FileAndConsoleLoggerTest)
+/*TEST(LoggerTestSuite, FileAndConsoleLoggerTest)
 {
 	Logger<ConsoleLogPolicy, FileLogPolicy> logger;
 	logger.getPolicy<FileLogPolicy>()->open("FileAndConsoleLoggerTest.log");
@@ -75,4 +82,4 @@ TEST(LoggerTestSuite, ColorPolicyCoutTest)
 	logger.getPolicy<LogLevelColorPolicy>()->setColor<LogLevel::Info>(Color::BLUE);
 	logger.log<LogLevel::Error>("Some text");
 	logger.log<LogLevel::Info>("Some other text");
-}
+}*/

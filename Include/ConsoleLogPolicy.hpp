@@ -2,11 +2,10 @@
 
 #include <iostream>
 
-class ConsoleLogPolicy
+template <class T>
+struct ConsoleWriter
 {
-public:
-
-	void applyPolicy(std::string& buffer)
+	void write(T& buffer)
 	{
 		std::cout << buffer << std::endl;;
 	}

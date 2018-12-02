@@ -3,13 +3,14 @@
 #include <iostream>
 #include <fstream>
 
-class FileLogPolicy
+template <class T>
+class FileWriter 
 {
 public:
-	FileLogPolicy() {}
-	FileLogPolicy(const FileLogPolicy& copy) = delete;
-	FileLogPolicy(FileLogPolicy&& other) : fileStream(std::move(other.fileStream)) {}
-	~FileLogPolicy()
+	FileWriter() {}
+	FileWriter(const FileWriter& copy) = delete;
+	FileWriter(FileWriter&& other) : fileStream(std::move(other.fileStream)) {}
+	~FileWriter()
 	{
 		close();
 	}
@@ -36,7 +37,7 @@ public:
 		}
 	}
 
-	void applyPolicy(std::string& buffer)
+	void write(T& buffer)
 	{
 		if (fileStream)
 		{
@@ -49,6 +50,4 @@ public:
 	}
 private:
 	std::ofstream fileStream;
-
-
 };
