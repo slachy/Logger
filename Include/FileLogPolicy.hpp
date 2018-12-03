@@ -7,9 +7,6 @@ template <class T>
 class FileWriter 
 {
 public:
-	FileWriter() {}
-	FileWriter(const FileWriter& copy) = delete;
-	FileWriter(FileWriter&& other) : fileStream(std::move(other.fileStream)) {}
 	~FileWriter()
 	{
 		close();
