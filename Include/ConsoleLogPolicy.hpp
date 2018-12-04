@@ -2,11 +2,14 @@
 
 #include <iostream>
 
-template <class T>
 struct ConsoleWriter
 {
+
+    template <class T>
 	void write(T& buffer)
 	{
 		std::cout << buffer << std::endl;;
 	}
+protected:
+	~ConsoleWriter() {}
 };

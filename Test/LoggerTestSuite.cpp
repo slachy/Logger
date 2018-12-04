@@ -39,30 +39,26 @@ TEST(LoggerTestSuite, CoutLoggerTestError)
 	Logger<ConsoleWriter> logger;
 	logger.log<LogLevel::Error>("Some text");
 }
-/*
-TEST(LoggerTestSuite, FileLoggerTest)
-{
-	Logger<FileLogPolicy> logger;
-	logger.getPolicy<FileLogPolicy>()->open("FileLoggerTest.log");
-	logger.log<LogLevel::Info>("Some text");
-}
 
-/*TEST(LoggerTestSuite, FileAndConsoleLoggerTest)
+TEST(LoggerTestSuite, FileLoggerOptionalFunctionalityTest)
 {
-	Logger<ConsoleLogPolicy, FileLogPolicy> logger;
-	logger.getPolicy<FileLogPolicy>()->open("FileAndConsoleLoggerTest.log");
-	logger.log<LogLevel::Error>("Some text");
+	Logger<FileWriter> logger;
+	logger.open("FileLoggerTest.log");
+	logger.log<LogLevel::Info>("Some text");
+
+    logger.changeFile("FileLoggerOptional.txt");
+	logger.log<LogLevel::Debug>("Text loged to different file");
 }
 
 void firstThread()
 {
-    Logger<ThreadSafePolicy, ConsoleLogPolicy> logger;
+    Logger<ConsoleWriter, ThreadSafe> logger;
     logger.log<LogLevel::Debug>("Text logged from first thread");
 }
 
 void secondThread()
 {
-    Logger<ThreadSafePolicy, ConsoleLogPolicy> logger;
+    Logger<ConsoleWriter, ThreadSafe> logger;
     logger.log<LogLevel::Info>("Text logged from second thread");
 }
 
@@ -74,7 +70,7 @@ TEST(LoggerTestSuite, ThreadSafeCoutLoggerTest)
 	threadTwo.join();
 	threadOne.join();
 }
-
+/*
 TEST(LoggerTestSuite, ColorPolicyCoutTest)
 {
 	Logger<LogLevelColorPolicy, ConsoleLogPolicy> logger;

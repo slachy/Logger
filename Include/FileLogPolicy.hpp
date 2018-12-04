@@ -3,14 +3,14 @@
 #include <iostream>
 #include <fstream>
 
-template <class T>
 class FileWriter 
 {
-public:
+protected:
 	~FileWriter()
 	{
 		close();
 	}
+public:
 	bool open(const std::string& filename)
 	{
 		fileStream.open(filename);
@@ -34,6 +34,7 @@ public:
 		}
 	}
 
+    template <class T>
 	void write(T& buffer)
 	{
 		if (fileStream)
@@ -45,6 +46,7 @@ public:
 			std::cerr << "FileLogPolicy Error: File stream is not open for writing." << std::endl;
 		}
 	}
+
 private:
 	std::ofstream fileStream;
 };

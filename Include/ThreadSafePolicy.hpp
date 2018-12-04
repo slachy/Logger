@@ -3,21 +3,26 @@
 #include <iostream>
 #include <mutex>
 
-class ThreadSafePolicy
+class ThreadSafe
 {
 private:
     static std::mutex mutex;
 
-public:
-	~ThreadSafePolicy()
+protected:
+	~ThreadSafe()
 	{
-		mutex.unlock();
+		unlock();
 	}
 
-	void applyPolicy(std::string&)
+public:
+	void lock()
 	{
         mutex.lock();
 	}
+    void unlock()
+	{
+        mutex.unlock();
+	}
 };
 
-std::mutex ThreadSafePolicy::mutex;
+std::mutex ThreadSafe::mutex;
