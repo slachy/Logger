@@ -1,16 +1,10 @@
 #pragma once
 
 #include <string>
-#include <fstream>
-#include <type_traits>
-#include <tuple>
-#include <ctime>
-#include <iomanip>
-#include <sstream>
 
 #include "LogLevel.hpp"
-#include "FileLogPolicy.hpp"
-#include "ThreadSafePolicy.hpp"
+#include "FileWriter.hpp"
+#include "ThreadSafe.hpp"
 #include "SingleThread.hpp"
 
 template <class  WritePolicy, class ThreadingModel = SingleThread>

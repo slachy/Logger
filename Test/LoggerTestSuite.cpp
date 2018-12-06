@@ -4,10 +4,9 @@
 #include <thread>
 
 #include "Logger.hpp"
-#include "ConsoleLogPolicy.hpp"
-#include "FileLogPolicy.hpp"
-#include "ThreadSafePolicy.hpp"
-#include "LogLevelColorPolicy.hpp"
+#include "ConsoleWriter.hpp"
+#include "FileWriter.hpp"
+#include "ThreadSafe.hpp"
 
 TEST(LoggerTestSuite, CoutLoggerTest)
 {
@@ -70,12 +69,3 @@ TEST(LoggerTestSuite, ThreadSafeCoutLoggerTest)
 	threadTwo.join();
 	threadOne.join();
 }
-/*
-TEST(LoggerTestSuite, ColorPolicyCoutTest)
-{
-	Logger<LogLevelColorPolicy, ConsoleLogPolicy> logger;
-	logger.getPolicy<LogLevelColorPolicy>()->setColor<LogLevel::Error>(Color::RED);
-	logger.getPolicy<LogLevelColorPolicy>()->setColor<LogLevel::Info>(Color::BLUE);
-	logger.log<LogLevel::Error>("Some text");
-	logger.log<LogLevel::Info>("Some other text");
-}*/
